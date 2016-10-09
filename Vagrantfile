@@ -4,6 +4,7 @@
 VAGRANTFILE_USERNAME = "vagrant"
 VAGRANTFILE_COMMAND = ARGV[0]
 VAGRANTFILE_API_VERSION = "2"
+VAGRANTFILE_PATH = File.dirname(__FILE__)
 
 
 # If we're doing anything that provisions or reprovisions machines, we
@@ -11,16 +12,16 @@ VAGRANTFILE_API_VERSION = "2"
 # about our VMs.
 if  ['up', 'reload', 'provision'].include? VAGRANTFILE_COMMAND
   # Ansible inventory for control machine
-  File.open('ansible.hosts', 'w') do |hosts|
+  File.open(VAGRANTFILE_PATH+'/ansible.hosts', 'w') do |hosts|
     hosts.puts "ansible.vagrant.local ansible_connection=local"
     hosts.puts "[vagrant]"
   end
   # /etc/hosts file for control machine
-  File.open('hosts', 'w') do |hosts|
+  File.open(VAGRANTFILE_PATH+'/hosts', 'w') do |hosts|
     hosts.puts "127.0.0.1	localhost.localdomain localhost"
   end
   # ~/.ssh/config for vagrant user on control machine
-  File.open('ssh.cfg', 'w') do |hosts|
+  File.open(VAGRANTFILE_PATH+'/ssh.cfg', 'w') do |hosts|
     hosts.puts "Host *.vagrant.local"
     hosts.puts "  StrictHostKeyChecking no"
   end
@@ -50,7 +51,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   # Load and build project VMs
   # Use binding.eval to make sure that we're in the right scope.
-  binding.eval(File.read(File.expand_path('hosts.rb')))
+  binding.eval(File.read(File.expand_path(VAGRANTFILE_PATH+'/hosts.rb')))
 
   # Build Ansible control machine and run vagrant playbook
   config.vm.define "ansible" do |ansible|
