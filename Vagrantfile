@@ -14,9 +14,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.forward_agent = true
   config.vm.network "private_network", type: "dhcp"
   config.vm.provider :virtualbox do |v|
-    v.memory = 1024
+    v.memory = 512
     v.linked_clone = true
   end
+
+
+  config.vm.provision "shell",
+                       path: "scripts/gethostinfo.sh", keep_color: "True",
+                       run: "always"
+
 
   # write hostfile when provisioning
   if  ['up', 'reload', 'provision'].include? VAGRANTFILE_COMMAND
@@ -41,48 +47,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.ssh.username = VAGRANTFILE_USERNAME
   end
 
+  
+  # Project vms
+  binding.eval(File.read(File.expand_path('hosts.rb')))
 
-  # CAS
-  config.vm.define "cas" do |cas|
-    cas.vm.network "forwarded_port", guest:8443, host:8443
-    cas.vm.hostname = "cas.vagrant.local"
-    cas.vm.provision "shell",
-      path: "gethostinfo.sh", keep_color: "True",
-      run: "always"
-  end
-
-  # Drupal 7
-  config.vm.define "d7" do |d7|
-    d7.vm.hostname = "d7.vagrant.local"
-    d7.vm.provision "shell",
-      path: "gethostinfo.sh", keep_color: "True",
-      run: "always"
-  end
-
-  # Nginx
-  config.vm.define "nginx" do |nginx|
-    nginx.vm.provider :virtualbox do |v|
-      v.memory = 512
-      v.linked_clone = true
-    end
-    nginx.vm.hostname = "nginx.vagrant.local"
-    nginx.vm.network "forwarded_port", guest:443, host:64443
-    nginx.vm.provision "shell",
-      path: "gethostinfo.sh", keep_color: "True",
-      run: "always"
-  end
-  # Ansible Control
+  # Ansible control vm
   config.vm.define "ansible" do |ansible|
     ansible.vm.provider :virtualbox do |v|
-      v.memory = 512
-      v.linked_clone = true
+      v.memory = 256
     end
     ansible.vm.hostname = "ansible.vagrant.local"
     ansible.vm.provision "shell",
-      path: "gethostinfo.sh", keep_color: "True",
-      run: "always"
-    ansible.vm.provision "shell",
-      path: "bootstrap.sh", keep_color: "True"
+      path: "scripts/bootstrap.sh", keep_color: "True"
   end
 
 end
