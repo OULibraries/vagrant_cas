@@ -1,0 +1,19 @@
+---
+- hosts: vagrant
+  vars_files:
+    - my-vars.yml
+  roles:
+    - OULibraries.centos7
+  pre_tasks:
+    - include: pretasks.yml
+      sudo: yes
+
+#                                 #
+# Add project specific plays here #
+#                                 #
+  
+- hosts: vagrant
+  vars_files:
+    - my-vars.yml
+  roles:
+    - OULibraries.users
