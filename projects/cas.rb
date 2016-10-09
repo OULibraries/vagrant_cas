@@ -4,6 +4,9 @@
 config.vm.define "cas" do |cas|
   cas.vm.hostname = "cas.vagrant.local"
   cas.vm.network "forwarded_port", guest:8443, host:8443
+  cas.vm.provider :virtualbox do |v|
+    v.memory = 1024
+  end
 end
 
 # Drupal 7
