@@ -26,9 +26,7 @@ if  ['up', 'reload', 'provision'].include? VAGRANTFILE_COMMAND
   end
 end
 
-
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-
   # Default configuration for all VMs
   config.vm.box = "geerlingguy/centos7"
   config.ssh.forward_agent = true
@@ -53,7 +51,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Load and build project VMs
   # Use binding.eval to make sure that we're in the right scope.
   binding.eval(File.read(File.expand_path('hosts.rb')))
-  
 
   # Build Ansible control machine and run vagrant playbook
   config.vm.define "ansible" do |ansible|
@@ -64,5 +61,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.vm.provision "shell",
       path: "scripts/bootstrap.sh", keep_color: "True"
   end
-
 end
