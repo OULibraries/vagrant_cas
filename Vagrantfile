@@ -51,14 +51,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   
   # Load and build project VMs
+  # Use binding.eval to make sure that we're in the right scope.
   binding.eval(File.read(File.expand_path('hosts.rb')))
+  
 
   # Build Ansible control machine and run vagrant playbook
   config.vm.define "ansible" do |ansible|
-    ansible.vm.provider :virtualbox do |v|
-      v.memory = 256
-    end
     ansible.vm.hostname = "ansible.vagrant.local"
+    ansible.vm.provider :virtualbox do |v|
+      v.memory = 256  # Keeping overhead low
+    end
     ansible.vm.provision "shell",
       path: "scripts/bootstrap.sh", keep_color: "True"
   end
