@@ -57,6 +57,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.vm.hostname = "ansible.vagrant.local"
     ansible.vm.provider :virtualbox do |v|
       v.memory = 256  # Keeping overhead low
+      v.cpus = 1
     end
     ansible.vm.provision "shell",
       path: "scripts/bootstrap.sh", keep_color: "True"
