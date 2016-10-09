@@ -1,1 +1,1 @@
-projects/onesearch.rb
+projects/example.rb
