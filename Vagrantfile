@@ -1,11 +1,17 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+##### Config
+
 VAGRANTFILE_USERNAME = "vagrant"
+VAGRANTFILE_PLAYBOOK = "projects/example.yml"
+VAGRANTFILE_HOSTSRB = "projects/example.rb"
+
+##### End of Config
+
 VAGRANTFILE_COMMAND = ARGV[0]
 VAGRANTFILE_API_VERSION = "2"
 VAGRANTFILE_PATH = File.dirname(__FILE__)
-
 
 # If we're doing anything that provisions or reprovisions machines, we
 # need to start new versions of the config files that need to know
@@ -51,7 +57,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   # Load and build project VMs
   # Use binding.eval to make sure that we're in the right scope.
-  binding.eval(File.read(File.expand_path(VAGRANTFILE_PATH+'/hosts.rb')))
+  binding.eval(File.read(File.expand_path(VAGRANTFILE_PATH+'/'+ VAGRANTFILE_HOSTSRB)))
 
   # Build Ansible control machine and run vagrant playbook
   config.vm.define "ansible" do |ansible|
@@ -61,6 +67,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       v.cpus = 1
     end
     ansible.vm.provision "shell",
-      path: "scripts/bootstrap.sh", keep_color: "True"
+                         path: "scripts/bootstrap.sh",
+                         keep_color: "True",
+                         args: VAGRANTFILE_PLAYBOOK
   end
 end

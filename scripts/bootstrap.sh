@@ -23,4 +23,4 @@ sudo -u vagrant bash -c "
 # Keep colors intact
 export PYTHONUNBUFFERED=1
 export ANSIBLE_FORCE_COLOR=1
-ansible-playbook /vagrant/vagrant.yml"
+ansible-playbook /vagrant/${1}"
