@@ -6,7 +6,7 @@ HOSTNAME=$(hostname)
 VAGRANTNAME=$(hostname | cut -d"." -f 1)
 
 # Ends up in /etc/ansible/hosts on ansible machine
-echo "${HOSTNAME}" >> /vagrant/ansible.hosts
+echo "${HOSTNAME}" >> /vagrant/project/ansible.hosts
 
 # Ends up in /etc/hosts on ansible machine
 echo "${IP}	${HOSTNAME}" >> /vagrant/hosts

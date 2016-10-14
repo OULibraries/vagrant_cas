@@ -1,0 +1,52 @@
+---
+- hosts: vagrant
+  sudo: yes
+  roles:
+    - OULibraries.centos7
+  pre_tasks:
+    - include: pretasks.yml
+
+- hosts: d7.vagrant.local
+  sudo: yes
+    
+  pre_tasks:
+    - name: /srv is a directory
+      file: path=/srv state=directory mode=0755 force=yes
+
+    - name: Check preconditions for running playbook.
+      assert:
+        that:
+          - mariadb_root_pass is defined
+  roles:
+    - OULibraries.mariadb
+    - OULibraries.apache2
+    - OULibraries.d7
+    - OULibraries.ngrok
+
+  post_tasks:
+    - name: Make sure securepath works
+      lineinfile:
+        dest: /etc/sudoers
+        regexp: '^Defaults    secure_path = .*$'
+        line: 'Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin:/opt/php/bin/'
+        validate: 'visudo -cf %s'
+
+- hosts: solr.vagrant.local
+  sudo: yes
+  pre_tasks:
+    - name: /srv is a directory
+      file: path=/srv state=directory mode=0755 force=yes
+  roles:
+    - OULibraries.java
+    - geerlingguy.solr
+  post_tasks:
+    - name: Make sure securepath works
+      lineinfile:
+        dest: /etc/sudoers
+        regexp: '^Defaults    secure_path = .*$'
+        line: 'Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin:/opt/php/bin/'
+        validate: 'visudo -cf %s'
+
+- hosts: vagrant
+  roles:
+    - OULibraries.users

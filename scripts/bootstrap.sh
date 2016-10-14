@@ -11,9 +11,9 @@ chown vagrant:vagrant /home/vagrant/.ssh/config
 chmod 600 /home/vagrant/.ssh/config
 
 # ansible complains if these files are on the windows share because permissions
-cp /vagrant/ansible.hosts /etc/ansible/hosts
+#cp /vagrant/ansible.hosts /etc/ansible/hosts
 cp /vagrant/ansible.cfg /etc/ansible/ansible.cfg
-chmod -x /etc/ansible/hosts
+#chmod -x /etc/ansible/hosts
 
 # Install ansible roles
 ansible-galaxy install -r /vagrant/requirements.yml --force
