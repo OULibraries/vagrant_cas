@@ -1,0 +1,80 @@
+---
+# The configuration below would get you a server ready to run
+# d7_init.sh /srv/drupal-dev1 and d7_init.sh /srv/drupal-dev2
+
+# This example forwards:
+# https://drupal-dev1.drupal.vm.test on the vagrant host to https://drupal-dev1.ngrok.io and
+# https://drupal-dev2.drupal.vm.test on the vagrant host to https://drupal-dev2.ngrok.io
+
+
+# Style of environment to build: vagrant, test or prod
+environment_name: "webtest"
+
+# Drupal site email
+drupal_sitemail: "lib-noreply@ou.edu"
+
+# APC?
+apc_enabled: "0"
+
+# Developer ID and Auth
+
+# Your email address
+email: "{{ my_email }}"
+# Your ngrok token
+ngrok_authtoken: "{{my_ngrok_authtoken }}"
+
+# Local APC credentials
+apc_username: "apcuser"
+apc_password: "apcpass123"
+
+# Configuration for tunnels.
+# Note that because proto == tls, traffic is encrypted end-to-end, rather than cleartext. This is good.
+# DO NOT PASS SENSITIVE DATA OVER CLEARTEXT TUNNELS.
+tunnels:
+  - name: 'repository'
+    dn_suffix: 'lo5an.lib.ngrok.io'
+    port: '443'
+    proto: 'tls'
+
+    
+# root db password
+mariadb_root_pass: 'root'
+
+# Passing the local domain on to apache
+httpd_dn_suffix: "lo5an.lib.ngrok.io"
+
+# Email config
+
+smtp_host: smtp.office365.com
+smtp_port: 587
+smtp_domain: ou.edu
+smtp_start_tls: "YES"
+smtp_from_line_override: "YES"
+smtp_authuser: "{{my_smtp_authuser }}"
+smtp_authpassword: "{{ my_smtp_authpassword }}"
+sendmail_users:
+  - apache
+  - root
+  - lmc
+
+
+
+
+
+
+solr_version: "4.10.4"    
+solr_install_dir: "/opt/"
+solr_install_path: "/opt/solr"
+
+solr_home: "/var/solr"
+
+solr_port: "8983"
+
+solr_xmx: "512M"
+
+solr_cores:
+  - collection1
+
+solr_log_file_path: "/var/log/solr.log"
+
+solr_host: "0.0.0.0"
