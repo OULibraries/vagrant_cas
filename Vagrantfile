@@ -4,7 +4,7 @@
 ##### Config
 
 VAGRANTFILE_USERNAME = "lmc"
-VAGRANTFILE_PLAYBOOK = "project/playbooks/onesearch.yml"
+VAGRANTFILE_PLAYBOOK = "project/playbooks/vagrant.yml"
 VAGRANTFILE_HOSTSRB = "project/vagrant.rb"
 
 ##### End of Config
