@@ -21,7 +21,7 @@ apc_enabled: "0"
 # Your email address
 email: "{{ my_email }}"
 # Your ngrok token
-ngrok_authtoken: "{{my_ngrok_token }}"
+ngrok_authtoken: "{{my_ngrok_authtoken }}"
 
 # Local APC credentials
 apc_username: "apcuser"
