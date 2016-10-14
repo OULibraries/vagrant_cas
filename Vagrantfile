@@ -3,9 +3,9 @@
 
 ##### Config
 
-VAGRANTFILE_USERNAME = "vagrant"
-VAGRANTFILE_PLAYBOOK = "projects/example.yml"
-VAGRANTFILE_HOSTSRB = "projects/example.rb"
+VAGRANTFILE_USERNAME = "lmc"
+VAGRANTFILE_PLAYBOOK = "project/playbooks/onesearch.yml"
+VAGRANTFILE_HOSTSRB = "project/vagrant.rb"
 
 ##### End of Config
 
@@ -18,7 +18,7 @@ VAGRANTFILE_PATH = File.dirname(__FILE__)
 # about our VMs.
 if  ['up', 'reload', 'provision'].include? VAGRANTFILE_COMMAND
   # Ansible inventory for control machine
-  File.open(VAGRANTFILE_PATH+'/ansible.hosts', 'w') do |hosts|
+  File.open(VAGRANTFILE_PATH+'/project/ansible.hosts', 'w') do |hosts|
     hosts.puts "ansible.vagrant.local ansible_connection=local"
     hosts.puts "[vagrant]"
   end
