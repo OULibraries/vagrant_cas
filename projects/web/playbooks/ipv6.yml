@@ -6,9 +6,9 @@
     path: '/etc/sysctl.d/disableipv6.conf'
     state: 'absent'
 
-- name: Enable IPv6 for the running system
+- name: Make sure IPv6 is not disabled for the running system
   become: true
   become_user: root
   shell:
-    echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
-    echo 1 > /proc/sys/net/ipv6/conf/default/disable_ipv6
+    echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6
+    echo 0 > /proc/sys/net/ipv6/conf/default/disable_ipv6
