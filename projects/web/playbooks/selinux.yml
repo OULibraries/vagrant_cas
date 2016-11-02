@@ -1,8 +1,4 @@
 ---
-- name: Copy hosts file
-  copy:
-    src: /vagrant/hosts
-    dest: /etc/hosts
 - name: Enable selinux for testing
   selinux:
     state: enforcing

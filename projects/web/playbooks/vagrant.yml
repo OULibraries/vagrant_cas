@@ -4,7 +4,12 @@
   roles:
     - OULibraries.centos7
   pre_tasks:
-    - include: pretasks.yml
+    - include: selinux.yml
+  post_tasks:
+    - include: ipv6.yml
+
+
+    
 
 - hosts: d7.vagrant.localdomain
   sudo: yes
