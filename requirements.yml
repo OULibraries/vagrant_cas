@@ -5,7 +5,7 @@
   name: OULibraries.apache2
 
 - src: https://github.com/OULibraries/ansible-role-cas
-  version: master
+  version: dev-overlay-5x
   name: OULibraries.cas
 
 - src: https://github.com/OULibraries/ansible-role-celery-worker

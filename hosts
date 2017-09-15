@@ -1,6 +1,6 @@
 127.0.0.1	localhost.localdomain localhost
 192.168.96.2	ansible.vagrant.localdomain
-192.168.96.3	nginx.vagrant.localdomain
+192.168.96.3	nginx.vagrant.localdomain d7.nginx.vagrant.localdomain cas.nginx.vagrant.localdomain apigate.nginx.vagrant.localdomain solr.nginx.vagrant.localdomain islandora.nginx.vagrant.localdomain dev.nginx.vagrant.localdomain
 192.168.96.4	d7.vagrant.localdomain
 192.168.96.5	cas.vagrant.localdomain
 192.168.96.6	apigate.vagrant.localdomain

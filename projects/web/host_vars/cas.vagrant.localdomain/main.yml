@@ -9,13 +9,27 @@ cas_services:
     logoutUrl: "https://.*{{ my_httpd_dn_suffix }}/caslogout"
     logoutType: "NONE"
 
+# Turn on SAML2 IdP
+cas_saml2_idp: true
 
 # Unique ID for CAS node
 cas_host_name: cas.vagrant.localdomain
 
+# Let CAS know what its external endpoint is
+cas_server_name: "https://cas.{{ my_httpd_dn_suffix }}"
+
+# Add self-signed nginx cert to keystore used by cas client code:
+cas_import_tls_cert:
+  - hostname: cas.nginx.vagrant.localdomain
+    port: 443
+
+# Configure IdP-specifics
+cas_samlIdp_hostName: "cas.{{ my_httpd_dn_suffix }}"
+cas_samlIdp_scope: "{{ my_httpd_dn_suffix }}"
+
 # Specify a cas overlay
-cas_overlay_repo: "https://github.com/OULibraries/cas-overlay.git"
-cas_overlay_version: "4.1-oulib"
+cas_overlay_repo: "https://github.com/apereo/cas-overlay-template.git"
+cas_overlay_version: "5.2"
 
 # CAS login screen verbiage variables
 cas_screen_welcome_instructions: "Login with your OUNetID (4x4)"
