@@ -8,3 +8,5 @@
 192.168.96.8	islandora.vagrant.localdomain
 192.168.96.9    dev.vagrant.localdomain
 192.168.96.10   dspace.vagrant.localdomain
+192.168.96.11 zabbix.vagrant.localdomain
+192.168.96.12 elk.vagrant.localdomain

@@ -1,0 +1,26 @@
+---
+# Configure a common baseline for all hosts
+- hosts: vagrant
+  become: true
+  roles:
+    - role: OULibraries.centos7
+      tags: centos7
+  pre_tasks:
+    - include: pretasks.yml
+      tags: pretasks
+
+# Build stand-alone zabbix box
+- hosts: zabbix.vagrant.localdomain
+  become: true
+  roles:
+    - role: OULibraries.zabbix
+      tags: zabbix
+
+
+
+# Got back and configure interactive users and devel settings for all hosts
+- hosts: vagrant
+  become: true
+  roles:
+    - role: OULibraries.users
+      tags: users

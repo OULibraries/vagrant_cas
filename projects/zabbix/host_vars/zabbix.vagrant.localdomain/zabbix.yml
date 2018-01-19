@@ -1,0 +1,6 @@
+zabbix_install_dir: /srv/oulib/zabbix/
+zabbix_dn_prefix: zabbix6
+zabbix_dn_suffix: vagrant.localdomain
+zabbix_site_name: OU Vagrant Dspace Dev
+zabbix_db_username: zabbix
+zabbix_db_password: zabbix
