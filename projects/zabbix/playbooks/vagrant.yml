@@ -9,14 +9,14 @@
     - include: pretasks.yml
       tags: pretasks
 
-# Nothing specifically gets configured in this generic host. If it
-# did, that would go here.
-#
-# - hosts: dev.vagrant.localdomain
-#   sudo: yes
-#   roles:
-#     - role: OULibraries.role
-#       tags: role
+# Build stand-alone zabbix box
+- hosts: zabbix.vagrant.localdomain
+  become: true
+  roles:
+    - role: OULibraries.zabbix
+      tags: zabbix
+
+
 
 # Got back and configure interactive users and devel settings for all hosts
 - hosts: vagrant
